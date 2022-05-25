@@ -3,14 +3,19 @@
 
 <div class="row">
     <div class="col">
-        <form>
+        <form (ngSubmit)="save(myForm)" 
+              #myForm="ngForm"
+              autocomplete="off">
             <!-- PRODUCTO -->
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Producto</label>
                 <div class="col-sm-9">
                     <input type="text"
                            class="form-control"
-                           placeholder="Nombre del producto">
+                           ngModel 
+                           name="product"
+                           placeholder="Nombre del producto"
+                           required>
                     <span class="form-text text-danger">Debe ser de 3 letras</span>
                 </div>
             </div>
@@ -20,7 +25,10 @@
                 <div class="col-sm-9">
                     <input type="number"
                            class="form-control"
-                           placeholder="Precio del producto">
+                           ngModel 
+                           name="price"
+                           placeholder="Precio del producto"
+                           required>
                 </div>
             </div>
             <!-- EXISTENCIAS -->
@@ -29,10 +37,13 @@
                 <div class="col-sm-9">
                     <input type="number"
                            class="form-control"
-                           placeholder="Stock del producto">
+                           ngModel 
+                           name="stock"
+                           placeholder="Stock del producto"
+                           required>
                 </div>
             </div>
-
+            <!-- BUTTON SUBMIT -->
             <div class="row">
                 <div class="col">
                     <button type="submit" class="btn btn-primary float-end">
@@ -40,6 +51,17 @@
                     </button>
                 </div>
             </div>
+
         </form>
+    </div>
+</div>
+
+<!-- TESTS -->
+<div class="row">
+    <div class="col">
+        <span>Valid</span>
+        <pre>{{myForm.valid | json}}</pre>
+        <span>Value</span>
+        <pre>{{myForm.value | json}}</pre>
     </div>
 </div>
