@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col">
-        <form (ngSubmit)="save(myForm)" 
+        <form (ngSubmit)="save()" 
               #myForm="ngForm"
               autocomplete="off">
             <!-- PRODUCTO -->
@@ -18,8 +18,7 @@
                            required
                            minlength="3">
                     <span class="form-text text-danger"
-                          *ngIf="myForm.controls['product']?.invalid 
-                                 && myForm.controls['product']?.touched">
+                          *ngIf="validateName()">
                         Debe ser de 3 letras
                     </span>
                 </div>
@@ -33,7 +32,12 @@
                            ngModel 
                            name="price"
                            placeholder="Precio del producto"
-                           required>
+                           required
+                           min="0">
+                    <span class="form-text text-danger"
+                          *ngIf="validatePrice()">
+                        El precio debe ser mayor o igual a 0
+                    </span>
                 </div>
             </div>
             <!-- EXISTENCIAS -->
@@ -44,6 +48,8 @@
                            class="form-control"
                            ngModel 
                            name="stock"
+                           customMin
+                           [minValue]="0"
                            placeholder="Stock del producto"
                            required>
                 </div>
@@ -51,7 +57,9 @@
             <!-- BUTTON SUBMIT -->
             <div class="row">
                 <div class="col">
-                    <button type="submit" class="btn btn-primary float-end">
+                    <button type="submit" 
+                            class="btn btn-primary float-end"
+                            [disabled]="myForm.invalid">
                         Guardar
                     </button>
                 </div>
@@ -76,6 +84,9 @@
 
         <span>Value</span>
         <pre>{{myForm.value | json}}</pre>
+        
+        <span>Custom Directive</span>
+        <pre>{{myForm.controls['stock']?.['errors'] | json}}</pre>
 
     </div>
 </div>
