@@ -1,1 +1,75 @@
-<p>dynamics works!</p>
+<h2>Template: <small>Dinámicos</small></h2>
+<hr>
+<form (ngSubmit)="save()"
+      autocomplete="off"
+      #myForm="ngForm">
+
+    <!-- NAME   -->
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+            <input class="form-control"
+                   placeholder="Nombre de la persona"
+                   [ngModel]="person.name"
+                   name="personName"
+                   required>
+                <span class="form-text text-danger"
+                      *ngIf="myForm.controls['name']?.errors
+                             && myForm.controls['name']?.touched">
+                    Este campo es obligatorio
+                </span>
+        </div>
+    </div>
+
+    <!-- AGREGAR FAVORITO -->
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Agregar</label>
+        <div class="col-sm-9">
+            <div class="input-group mb-3">
+                <input  class="form-control" 
+                        placeholder="Agregar favorito"
+                        [(ngModel)]="newFavorite"
+                        (keyup.enter)="addNewElement()"
+                        name="newFavorite">
+                <button class="btn btn-outline-primary" 
+                        type="button"
+                        (click)="addNewElement()">
+                    Agregar
+                </button>
+              </div>
+        </div>
+    </div>
+
+    <!-- LISTA DE FAVORITOS   -->
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Favoritos</label>
+        <div class="col-sm-9">
+            <div class="input-group mb-1" 
+                 *ngFor="let item of person.favorites; let i = index">
+                <input  class="form-control "
+                        [(ngModel)]="item.name"
+                        name="item_{{i}}"
+                        required>
+                <button class="btn btn-outline-danger" 
+                        type="button"
+                        (click)="deleteElement(i)">
+                            Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button"
+                    class="btn btn-primary float-end"
+                    [disabled]="myForm.invalid"
+                    (click)="save()">
+                Guardar
+            </button>
+        </div>
+    </div>
+</form>
+
+<span>Persona Test</span>
+<pre>{{person | json}}</pre>

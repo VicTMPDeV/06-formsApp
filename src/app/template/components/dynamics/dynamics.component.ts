@@ -1,4 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+interface Person {
+  name: string,
+  favorites: Favorite[] 
+}
+
+interface Favorite {
+  id: number,
+  name: string
+}
+
 
 @Component({
   selector: 'app-dynamics',
@@ -6,11 +17,33 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class DynamicsComponent implements OnInit {
+export class DynamicsComponent {
 
-  constructor() { }
+  newFavorite: string = '';
 
-  ngOnInit(): void {
+  person: Person = {
+    name: 'Víctor',
+    favorites: [
+      { id:1, name: 'Metal Gear'},
+      { id:2, name: 'PES 6'}
+    ]
+  }
+
+  save(){
+    console.log('')
+  }
+
+  addNewElement(){
+    const newElement: Favorite = {
+      id: this.person.favorites.length + 1,
+      name: this.newFavorite
+    };
+    this.person.favorites.push({...newElement});
+    this.newFavorite = '';
+  }
+
+  deleteElement(index: number){
+    this.person.favorites.splice(index,1);
   }
 
 }
