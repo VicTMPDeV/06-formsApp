@@ -9,7 +9,13 @@ import { NgForm } from '@angular/forms';
 })
 export class BasicsComponent implements OnInit {
 
-  @ViewChild('myForm') myFormP!: NgForm;
+  @ViewChild('myForm') myFormTS!: NgForm;
+
+  initialValues = {
+    product: '',
+    price: 0,
+    stock: 0
+  }
 
   constructor() { }
 
@@ -17,13 +23,13 @@ export class BasicsComponent implements OnInit {
   }
 
   validateName(): boolean {
-    return this.myFormP?.controls['product']?.invalid 
-           && this.myFormP?.controls['product']?.touched
+    return this.myFormTS?.controls['product']?.invalid 
+           && this.myFormTS?.controls['product']?.touched
   }
 
   validatePrice(): boolean {
-    return this.myFormP?.controls['price']?.touched
-           && this.myFormP?.controls['price']?.value < 0
+    return this.myFormTS?.controls['price']?.touched
+           && this.myFormTS?.controls['price']?.value < 0
   }
 
   // save(myForm: NgForm){
@@ -31,7 +37,11 @@ export class BasicsComponent implements OnInit {
   // }
 
   save(){
-    console.log('Posteo correcto',this.myFormP);
+    console.log('Posteo correcto',this.myFormTS);
+    this.myFormTS.resetForm({
+      price: 0,
+      stock: 0
+    });
   }
 
 }
