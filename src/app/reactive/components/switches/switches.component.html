@@ -1,1 +1,71 @@
-<p>switches works!</p>
+<h2>Reactivos: Switches</h2>
+<hr>
+
+<form>
+    <!-- RADIOS -->
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">
+            Género
+        </label>
+        <div class="col-sm-9">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="genderRadius" value="N" id="mascRadius">
+                <label class="form-check-label" for="mascRadius">
+                    Masculino
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="genderRadius" value="F" id="femRadius">
+                <label class="form-check-label" for="femRadius">
+                    Femenino
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- SWITCH -->
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">
+            Notificaciones
+        </label>
+        <div class="col-sm-9">
+            <div class="form-check form-switch mt-2">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">
+                    Quiero recibir notificaciones
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKS -->
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Términos y condicones de uso
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTON -->
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end">
+                Guardar
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- <h5>Valor del formulario</h5>
+<pre>{{myForm.value | json}}</pre>
+<br>
+<h5>Valido</h5>
+<pre>{{myForm.valid | json}}</pre>
+<br>
+<h5>Condiciones</h5>
+<pre>{{myForm.valid | json}}</pre> -->
