@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -7,19 +7,24 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
   styles: [
   ]
 })
-export class BasicsComponent implements OnInit{
+export class BasicsComponent{
 
-  myReactiveForm!: FormGroup;
+  // NO RECOMENDABLE HACER ASI, SOLO PARA FINES DOCENTES
+  // myReactiveForm: FormGroup = new FormGroup({
+  //   name : new FormControl('Pajilleitor Evolution'),
+  //   price: new FormControl(150),
+  //   stock: new FormControl(5)
+  // }) 
+
+  myReactiveForm: FormGroup = this.fb.group({
+    name : ['Pajilleitor Evolution'],
+    price: [150],
+    stock: [5]
+  })
 
   constructor(private readonly fb: FormBuilder) { }
 
-  ngOnInit(): void {
-    
-    this.myReactiveForm = this.fb.group({
-      name: ['efisio']
-    })
-    
-  }
+
 
 
 }
