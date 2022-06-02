@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-basics',
@@ -17,9 +17,9 @@ export class BasicsComponent{
   // }) 
 
   myReactiveForm: FormGroup = this.fb.group({
-    name : ['Pajilleitor Evolution'],
-    price: [150],
-    stock: [5]
+    name : ['Pajilleitor Evolution', [Validators.required, Validators.minLength(3)]],
+    price: [150, [Validators.required, Validators.min(0)]],
+    stock: [5, [Validators.required, Validators.min(0)]]
   })
 
   constructor(private readonly fb: FormBuilder) { }
