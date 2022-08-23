@@ -1,13 +1,23 @@
 <h2>Reactivos: <small>Dinámicos</small></h2>
 <hr>
-<form autocomplete="off">
+<form (ngSubmit)="save()"
+      autocomplete="off"
+      [formGroup]="myReactiveForm">
     <!-- NAME   -->
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Nombre</label>
         <div class="col-sm-9">
-            <input class="form-control" placeholder="Nombre de la persona">
-            <span class="form-text text-danger">
+            <input type="text"
+                   class="form-control" 
+                   placeholder="Nombre de la persona"
+                   formControlName="name">
+            <span class="form-text text-danger"
+                  *ngIf="myReactiveForm.controls['name'].errors?.required && myReactiveForm.controls['name'].touched">
                 Este campo es obligatorio
+            </span>
+            <span class="form-text text-danger"
+                  *ngIf="myReactiveForm.controls['name'].errors?.minlength">
+                El campo debe contener al menos 3 letras
             </span>
         </div>
     </div>
@@ -16,35 +26,73 @@
         <label class="col-sm-3 col-form-label">Agregar</label>
         <div class="col-sm-9">
             <div class="input-group mb-3">
-                <input class="form-control" placeholder="Agregar favorito" (keyup.enter)="1===1">
-                <button class="btn btn-outline-primary" type="button" (click)="1===1">
+                <input class="form-control" 
+                       [formControl]="addFavoriteControl"
+                       placeholder="Agregar favorito"
+                       (keyup.enter)="addFavorite()">
+                <button class="btn btn-outline-primary" 
+                        type="button"
+                        (click)="addFavorite()">
                     Agregar
                 </button>
             </div>
         </div>
     </div>
     <!-- LISTA DE FAVORITOS   -->
-    <div class="row mb-3">
+    <div class="row mb-3" *ngIf="favoritesArray.length !== 0">
         <label class="col-sm-3 col-form-label">Favoritos</label>
-        <div class="col-sm-9">
-            <!-- <div class="input-group mb-1"
-                 *ngFor="let item of person.favorites; let i = index">
-                <input class="form-control">
-                <button class="btn btn-outline-danger" type="button" (click)="1===1">
+        <div class="col-sm-9" formArrayName="favorites">
+            <div class="input-group mb-1"
+                 *ngFor="let favorite of favoritesArray.controls; let i = index">
+                <input class="form-control"
+                       [formControlName]="i">
+                <button class="btn btn-outline-danger" 
+                        type="button"
+                        (click)="deleteFavorite(i)">
                     Eliminar
                 </button>
-            </div> -->
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <button type="button" class="btn btn-primary float-end" (click)="1===1">
+            <button type="submit" 
+                    class="btn btn-primary float-end">
                 Guardar
             </button>
         </div>
     </div>
 </form>
 
-<!-- TEST -->
-<!-- <span>Persona Test</span>
-<pre>{{person | json}}</pre> -->
+<!-- TESTS -->
+<div class="row">
+    <div class="col">
+
+        <hr>
+
+        <span>FORM Value</span>
+        <pre>{{myReactiveForm.value | json}}</pre>
+        
+        <span>FORM Valid</span>
+        <pre>{{myReactiveForm.valid | json}}</pre>
+
+        <span>FORM Pristine</span>
+        <pre>{{myReactiveForm.pristine | json}}</pre>
+
+        <span>FORM Touched</span>
+        <pre>{{myReactiveForm.touched| json}}</pre>
+
+        <hr>
+
+        <span>CONTROL addFavorite Value</span>
+        <pre>{{addFavoriteControl.value | json}}</pre>
+        
+        <span>CONTROL addFavorite Valid</span>
+        <pre>{{addFavoriteControl.valid | json}}</pre>
+        
+        <!-- <span>ERRORS Name</span>
+        <pre>{{myReactiveForm.controls.name.errors | json}}</pre> -->
+
+
+    </div>
+</div>

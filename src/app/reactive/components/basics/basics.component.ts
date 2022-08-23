@@ -17,7 +17,7 @@ export class BasicsComponent implements OnInit{
   // }) 
 
   public myReactiveForm: FormGroup = this.fb.group({
-    name : [ , [Validators.required, Validators.minLength(3)]],
+    name : [ , [Validators.required, Validators.minLength(3)]], //CADA LINEA ES UN CONTROL
     price: [ , [Validators.required, Validators.min(0)]],
     stock: [ , [Validators.required, Validators.min(0)]]
   });
@@ -25,14 +25,7 @@ export class BasicsComponent implements OnInit{
   constructor(private readonly fb: FormBuilder) { }
 
   ngOnInit(): void {
-  }
-
-  public buildForm(): void {
-    this.myReactiveForm = this.fb.group({
-      name : ['', [Validators.required, Validators.minLength(3)]],
-      price: [0, [Validators.required, Validators.min(0)]],
-      stock: [0, [Validators.required, Validators.min(0)]]
-    })
+    // Puedo usar el reset() del formulario para establecerle algunos valores por defecto
   }
 
   // public validateField( field: string ) {
