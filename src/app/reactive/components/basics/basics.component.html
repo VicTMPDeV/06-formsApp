@@ -2,16 +2,24 @@
 <hr>
 <div class="row">
     <div class="col">
-        <form autocomplete="off" [formGroup]="myReactiveForm">
+        <form (ngSubmit)="save()" 
+               autocomplete="off" 
+              [formGroup]="myReactiveForm">
             <!-- PRODUCTO -->
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Producto</label>
                 <div class="col-sm-9">
-                    <input  type="text" class="form-control" 
+                    <input  type="text" 
+                            class="form-control" 
                             placeholder="Nombre del producto"
                             formControlName="name">
-                    <span class="form-text text-danger">
-                        Debe ser de 3 letras
+                    <span class="form-text text-danger"
+                          *ngIf="myReactiveForm.controls['name'].errors?.required && myReactiveForm.controls['name'].touched">
+                        El campo es obligatorio
+                    </span>
+                    <span class="form-text text-danger"
+                          *ngIf="myReactiveForm.controls['name'].errors?.minlength">
+                        El campo debe contener al menos 3 letras
                     </span>
                 </div>
             </div>
@@ -22,7 +30,12 @@
                     <input type="number" class="form-control" 
                            placeholder="Precio del producto"
                            formControlName="price">
-                    <span class="form-text text-danger">
+                    <span class="form-text text-danger"
+                          *ngIf="myReactiveForm.controls['price'].errors?.required && myReactiveForm.controls['price'].touched">
+                        El campo es obligatorio
+                    </span>
+                    <span class="form-text text-danger"
+                          *ngIf="myReactiveForm.controls['price'].errors?.min">
                         El precio debe ser mayor o igual a 0
                     </span>
                 </div>
@@ -34,13 +47,23 @@
                     <input type="number" class="form-control" 
                            placeholder="Stock del producto"
                            formControlName="stock">
+                    <span class="form-text text-danger"
+                          *ngIf="myReactiveForm.controls['stock'].errors?.required && myReactiveForm.controls['stock'].touched">
+                        El campo es obligatorio
+                    </span>
+                    <span class="form-text text-danger"
+                          *ngIf="myReactiveForm.controls['stock'].errors?.min">
+                        El stock debe ser mayor o igual a 0
+                    </span>
                 </div>
             </div>
             <!-- BUTTON SUBMIT -->
             <div class="row">
                 <div class="col">
-                    <button type="submit" class="btn btn-primary float-end"
-                            [disabled]="myReactiveForm.invalid">
+                    <button type="submit" 
+                            class="btn btn-primary float-end">
+                            <!-- DESHABILITAR BOTON SI NO ES VALIDO EL FORMULARIO -->
+                            <!-- [disabled]="myReactiveForm.invalid" -->
                         Guardar
                     </button>
                 </div>
@@ -50,21 +73,35 @@
     </div>
 </div>
 
+
+
+
 <!-- TESTS -->
 <div class="row">
     <div class="col">
 
-        <span>Valid</span>
+        <hr>
+
+        <span>FORM Value</span>
+        <pre>{{myReactiveForm.value | json}}</pre>
+        
+        <span>FORM Valid</span>
         <pre>{{myReactiveForm.valid | json}}</pre>
 
-        <span>Pristine</span>
+        <span>FORM Pristine</span>
         <pre>{{myReactiveForm.pristine | json}}</pre>
 
-        <span>Touched</span>
+        <span>FORM Touched</span>
         <pre>{{myReactiveForm.touched| json}}</pre>
 
-        <span>Value</span>
-        <pre>{{myReactiveForm.value | json}}</pre>
+        <hr>
+        
+        <span>ERRORS Name</span>
+        <pre>{{myReactiveForm.controls.name.errors | json}}</pre>
+        <span>ERRORS Price</span>
+        <pre>{{myReactiveForm.controls.price.errors | json}}</pre>
+        <span>ERRORS Stock</span>
+        <pre>{{myReactiveForm.controls.stock.errors | json}}</pre>
 
     </div>
 </div>
